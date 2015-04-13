@@ -1,0 +1,11 @@
+"STARTUP.obj",
+"delay.obj",
+"display.obj",
+"encoder.obj",
+"init.obj",
+"keyboard.obj",
+"main.obj",
+"PWM.obj",
+"UART.obj" 
+TO "Motor_A" 
+RAMSIZE(256) 

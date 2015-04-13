@@ -1,0 +1,46 @@
+C51 COMPILER V9.00   UART                                                                  04/12/2015 14:34:35 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN UART.OBJ
+COMPILER INVOKED BY: D:\Program Files\KEIL\C51\C51\BIN\C51.EXE UART.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "includes.h"
+   2          uint RX_Data = 0;
+   3          void Interrupt_IRQ() interrupt 4
+   4          {
+   5   1              if(RI == 1 )
+   6   1              {
+   7   2                      RI = 0;
+   8   2                      //RX_Data = SBUF;
+   9   2              }
+  10   1              if(TI == 1)
+  11   1              {
+  12   2                      TI = 0;
+  13   2              }
+  14   1      }
+  15          
+  16          void Send_Data(uint TX_Data)
+  17          {
+  18   1              ES = 0;
+  19   1              SBUF = TX_Data;
+  20   1              while (!TI);
+  21   1              TI = 0;
+  22   1              ES = 1;
+  23   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     23    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

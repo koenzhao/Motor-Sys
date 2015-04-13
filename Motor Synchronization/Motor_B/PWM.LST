@@ -1,0 +1,129 @@
+C51 COMPILER V9.00   PWM                                                                   04/12/2015 14:26:35 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE PWM
+OBJECT MODULE PLACED IN PWM.OBJ
+COMPILER INVOKED BY: D:\Program Files\KEIL\C51\C51\BIN\C51.EXE PWM.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "includes.h"
+   2          
+   3          uint Motor_Period = 100;
+   4          uint Motor_Hight = 50;
+   5          uint Motor_Hights = 50;
+   6          char high[4] = {'0','0','0','%'};
+   7          //int Encoder_i = 0;
+   8          
+   9          void Motor_Init()
+  10          {
+  11   1              Motor_IN1 = 1;
+  12   1              Motor_IN2 = 0;
+  13   1              Motor_EN = 1;
+  14   1      }
+  15          void Interrupt_T0() interrupt 1  //PWM
+  16          {
+  17   1              Motor_Hights--;
+  18   1              if(Motor_Hights == 0)
+  19   1              {
+  20   2                      Motor_EN = 0;
+  21   2                      Motor_Hights = 1;
+  22   2              } 
+  23   1              
+  24   1              Motor_Period--;
+  25   1              if(Motor_Period == 0)
+  26   1              {
+  27   2                      Motor_EN = 1;
+  28   2                      Motor_Period = 100;
+  29   2                      Motor_Hights = Motor_Hight;
+  30   2              }
+  31   1              /*Encoder_i++;
+  32   1              if(Encoder_i == 20000)
+  33   1              {
+  34   1                      Encoder_i = 0;
+  35   1                      Encoder_Speed = 60 * Encoder_Count;
+  36   1                      Encoder_Count = 0;
+  37   1              } */
+  38   1              
+  39   1              /*Motor_Hights--;
+  40   1              if(Motor_Hights == 0)
+  41   1              {
+  42   1                      Motor_EN = 0;
+  43   1                      Motor_Hights = 1;
+  44   1              }*/
+  45   1      }
+  46          
+  47          /*void Close_PWM()//关闭PWM
+  48          {
+  49                  TR0 = 0;
+  50                  ET0 = 0;
+  51          } */
+  52          /*uchar HighRH = 0;
+  53          uchar HighRL = 0;
+  54          uchar LowRH = 0;
+  55          uchar LowRL = 0;
+C51 COMPILER V9.00   PWM                                                                   04/12/2015 14:26:35 PAGE 2   
+
+  56          //sbit PWM_Pin = P1^1;
+  57          
+  58          void PWM_Config(uchar dc) //配置PWM，输入占空比dc
+  59          {
+  60                  uint high, low;
+  61          //      ulong temp;
+  62          
+  63                  //Period = (11059200/12)/fr; //一个周期所需计数值
+  64                  high = (Period * dc) / 100; //高电平所需计数值
+  65                  low = Period - high;//低电平所需计数值
+  66                  high = 65536 - high;//高电平重载值
+  67                  low = 65536 - low;//低电平重载值
+  68          
+  69                  HighRH = (uchar) (high>>8);//高电平重载值高字节
+  70                  HighRL = (uchar) (high);//高电平重载值低字节
+  71                  LowRH = (uchar) (low>>8);//低电平重载值高字节
+  72                  LowRL = (uchar) (low);//低电平重载值低字节
+  73          
+  74                  EA = 1;
+  75                  TMOD &= 0xF0;//清零T0的控制位
+  76                  TMOD |= 0x01;//配置T0为工作模式1
+  77                  TH0 = HighRH;//加载T0重载值
+  78                  TL0 = HighRL;
+  79                  ET0 = 1;//打开T0中断
+  80                  TR0 = 1;//使能T0中断
+  81                  IN_1 = 1;//PWM输出高电平
+  82                  
+  83          }
+  84          
+  85          
+  86          
+  87          void Interrupt_T0() interrupt 1 //产生PWM输出，中断服务函数
+  88          {
+  89                  if (IN_1 == 1)
+  90                  {
+  91                          TH0 = LowRH;
+  92                          TL0 = LowRL;
+  93                          IN_1 = 0;
+  94                  }
+  95                  else 
+  96                  {
+  97                          TH0 = HighRH;
+  98                          TL0 = HighRL;
+  99                          IN_1 = 1;
+ 100                  }
+ 101          }*/
+ 102          
+ 103          
+ 104          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
